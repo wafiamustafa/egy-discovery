@@ -2,7 +2,7 @@
 Flask==3.0.3                    # Web framework for the backend API
 
 # HTTP and API Communication
-requests==2.32.3                # HTTP library for external API calls and web scraping
+requests==2.32.4                # HTTP library for external API calls and web scraping
 
 # Environment and Configuration
 python-dotenv==1.0.1            # Environment variable management
@@ -11,7 +11,7 @@ python-dotenv==1.0.1            # Environment variable management
 watchdog==5.0.3                 # File system monitoring for development
 
 # Production Deployment
-gunicorn==22.0.0                # Production WSGI server for Flask
+gunicorn==23.0.0                # Production WSGI server for Flask
 
 # Web Scraping and Content Processing
 beautifulsoup4==4.12.2          # HTML/XML parsing for web scraping
