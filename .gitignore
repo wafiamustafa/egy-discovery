@@ -1,21 +1,79 @@
 # Python
 __pycache__/
-*.pyc
-.venv/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
 .env
-.env.*
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-# macOS
-.DS_Store
+# Flask
+instance/
+.webassets-cache
 
-# VSCode
+# Node.js / React
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Production builds
+frontend/dist/
+frontend/build/
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Python tooling
-.mypy_cache/
-.pytest_cache/
-.coverage
-htmlcov/
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# Local logs
+# Logs
+*.log
 logs/
+
+# Docker
+.dockerignore
+
+# Temporary files
+*.tmp
+*.temp

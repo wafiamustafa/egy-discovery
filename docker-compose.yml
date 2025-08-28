@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: egy-discovery-app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Safe defaults if .env not provided
+      - HOST=0.0.0.0
+      - PORT=8000
+    restart: unless-stopped
+ 

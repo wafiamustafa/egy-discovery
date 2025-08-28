@@ -1,0 +1,174 @@
+{
+  "name": "Accounting \u2014 Ingest & Alert",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "accounting_ingest",
+        "methods": [
+          "POST"
+        ]
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "http://backend:8000/api/v1/accounting/transactions",
+        "jsonParameters": true,
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "date",
+              "value": "={{$json[\"date\"]}}"
+            },
+            {
+              "name": "type",
+              "value": "={{$json[\"type\"]}}"
+            },
+            {
+              "name": "account",
+              "value": "={{$json[\"account\"]}}"
+            },
+            {
+              "name": "counterparty",
+              "value": "={{$json[\"counterparty\"] || ''}}"
+            },
+            {
+              "name": "currency",
+              "value": "={{$json[\"currency\"] || 'USD'}}"
+            },
+            {
+              "name": "amount",
+              "value": "={{$json[\"amount\"]}}"
+            },
+            {
+              "name": "category",
+              "value": "={{$json[\"category\"] || ''}}"
+            },
+            {
+              "name": "description",
+              "value": "={{$json[\"description\"] || ''}}"
+            },
+            {
+              "name": "meta",
+              "value": "={{$json}}"
+            }
+          ]
+        }
+      },
+      "name": "Save Tx",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json[\"amount\"]}}",
+              "operation": "larger",
+              "value2": 1000
+            }
+          ]
+        }
+      },
+      "name": "IF Large",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        760,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "http://n8n:5678/webhook/lead_outreach_telegram",
+        "jsonParameters": true,
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "chat_id",
+              "value": "={{$env.TELEGRAM_ALERT_CHAT || '123456'}}"
+            },
+            {
+              "name": "message",
+              "value": "=Large txn {{$json[\"amount\"]}} in {{$json[\"category\"]||'n/a'}}"
+            }
+          ]
+        }
+      },
+      "name": "Telegram Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        1000,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "responseMode": "lastNode"
+      },
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        380
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Save Tx",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Tx": {
+      "main": [
+        [
+          {
+            "node": "IF Large",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Large": {
+      "main": [
+        [
+          {
+            "node": "Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false
+}

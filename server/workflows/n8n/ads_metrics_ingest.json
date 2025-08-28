@@ -1,0 +1,193 @@
+{
+  "name": "Ads \u2014 Metrics Ingest & Alert",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "ads_metrics",
+        "methods": [
+          "POST"
+        ]
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const m=$json; const spend=Number(m.spend||0), revenue=Number(m.revenue||0); const roas=spend>0 ? (revenue/spend) : 0; return [{...m, roas}];"
+      },
+      "name": "Compute ROAS",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "http://backend:8000/api/v1/marketing/metrics",
+        "jsonParameters": true,
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "campaign_id",
+              "value": "={{$json[\"campaign_id\"] || null}}"
+            },
+            {
+              "name": "date",
+              "value": "={{$json[\"date\"]}}"
+            },
+            {
+              "name": "impressions",
+              "value": "={{$json[\"impressions\"] || 0}}"
+            },
+            {
+              "name": "clicks",
+              "value": "={{$json[\"clicks\"] || 0}}"
+            },
+            {
+              "name": "spend",
+              "value": "={{$json[\"spend\"] || 0}}"
+            },
+            {
+              "name": "conversions",
+              "value": "={{$json[\"conversions\"] || 0}}"
+            },
+            {
+              "name": "revenue",
+              "value": "={{$json[\"revenue\"] || 0}}"
+            },
+            {
+              "name": "metrics",
+              "value": "={{$json}}"
+            }
+          ]
+        }
+      },
+      "name": "Save Metrics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        760,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json[\"roas\"]}}",
+              "operation": "smaller",
+              "value2": 1.5
+            }
+          ]
+        }
+      },
+      "name": "IF Low ROAS",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        980,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "http://n8n:5678/webhook/lead_outreach_telegram",
+        "jsonParameters": true,
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "chat_id",
+              "value": "={{$env.TELEGRAM_ALERT_CHAT || '123456'}}"
+            },
+            {
+              "name": "message",
+              "value": "=ROAS low: {{$json[\"roas\"]}} on {{$json[\"campaign_id\"]||'n/a'}}"
+            }
+          ]
+        }
+      },
+      "name": "Telegram Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        1220,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "responseMode": "lastNode"
+      },
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        360
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Compute ROAS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute ROAS": {
+      "main": [
+        [
+          {
+            "node": "Save Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Metrics": {
+      "main": [
+        [
+          {
+            "node": "IF Low ROAS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Low ROAS": {
+      "main": [
+        [
+          {
+            "node": "Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false
+}
