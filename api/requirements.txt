@@ -1,38 +1,18 @@
 # Core Flask Framework
-Flask==3.0.3                    # Web framework for the backend API
+Flask==3.0.3
 
 # HTTP and API Communication
-requests==2.32.4                # HTTP library for external API calls and web scraping
+requests==2.32.4
 
 # Environment and Configuration
-python-dotenv==1.0.1            # Environment variable management
-
-# Development and Monitoring
-watchdog==5.0.3                 # File system monitoring for development
+python-dotenv==1.0.1
 
 # Production Deployment
-gunicorn==23.0.0                # Production WSGI server for Flask
+gunicorn==23.0.0
 
 # Web Scraping and Content Processing
-beautifulsoup4==4.12.2          # HTML/XML parsing for web scraping
-lxml==4.9.3                     # Fast XML/HTML parser backend for BeautifulSoup
+beautifulsoup4==4.12.2
+lxml==4.9.3
 
-# Data Processing and Analytics (Optional - for future enhancements)
-# pandas==2.1.4                 # Data manipulation and analysis
-# numpy==1.24.3                 # Numerical computing
-# scikit-learn==1.3.0           # Machine learning for advanced analytics
-
-# Database Support (Optional - for production database integration)
-# psycopg2-binary==2.9.7       # PostgreSQL adapter
-# pymysql==1.1.0                # MySQL adapter
-# redis==5.0.1                  # Redis client for caching
-
-# Security and Authentication (Optional - for production)
-# cryptography==41.0.7          # Cryptographic recipes
-# PyJWT==2.8.0                  # JSON Web Token implementation
-
-# Testing and Development (Optional)
-# pytest==7.4.2                 # Testing framework
-# pytest-cov==4.1.0             # Coverage reporting
-# black==23.9.1                 # Code formatting
-# flake8==6.1.0                 # Linting
+# Development and Monitoring
+watchdog==5.0.3
