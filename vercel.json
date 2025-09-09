@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/main.py",
+      "src": "requirements.txt",
       "use": "@vercel/python"
     },
     {
@@ -16,7 +16,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server/main.py"
+      "dest": "/api/index.py"
     },
     {
       "src": "/assets/(.*)",
@@ -34,7 +34,7 @@
     "PORT": "8000"
   },
   "functions": {
-    "server/main.py": {
+    "api/index.py": {
       "maxDuration": 30
     }
   }

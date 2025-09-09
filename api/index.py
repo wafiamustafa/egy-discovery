@@ -8,6 +8,7 @@ import os
 server_dir = os.path.join(os.path.dirname(__file__), '..', 'server')
 sys.path.insert(0, server_dir)
 
+# Import and create the Flask app
 from server.main import create_app
 
 # Create the Flask app instance
