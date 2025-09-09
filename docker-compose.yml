@@ -24,7 +24,7 @@ services:
       - N8N_WEBHOOK_URL=${N8N_WEBHOOK_URL:-}
       
       # OpenAI Configuration
-      - OPENAI_API_KEY=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
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - OPENAI_MODEL=gpt-3.5-turbo
       - OPENAI_MAX_TOKENS=1000
       - OPENAI_TEMPERATURE=-0.7
