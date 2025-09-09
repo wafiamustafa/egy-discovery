@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/main.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server/main.py"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/frontend/dist/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/dist/$1"
+    }
+  ],
+  "env": {
+    "FLASK_ENV": "production",
+    "FLASK_DEBUG": "false",
+    "HOST": "0.0.0.0",
+    "PORT": "8000"
+  },
+  "functions": {
+    "server/main.py": {
+      "maxDuration": 30
+    }
+  }
+}

@@ -11,6 +11,9 @@ from routes.api_routes import register_routes
 
 def create_app():
     """Application factory pattern"""
+    # Validate configuration on startup
+    Config.validate_config()
+    
     # Prefer React build if present, fallback to legacy www
     project_root = os.path.abspath(os.path.join(server_dir, '..'))
     react_dist_path = os.path.join(project_root, 'frontend', 'dist')
