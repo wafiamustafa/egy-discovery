@@ -5,7 +5,8 @@
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "maxLambdaSize": "50mb"
+        "maxLambdaSize": "50mb",
+        "installCommand": "pip install --upgrade pip && pip install -r api/requirements.txt"
       }
     },
     {
@@ -35,11 +36,5 @@
     "FLASK_DEBUG": "false",
     "HOST": "0.0.0.0",
     "PORT": "8000"
-  },
-  "functions": {
-    "api/index.py": {
-      "maxDuration": 30,
-      "runtime": "python3.11"
-    }
   }
 }
