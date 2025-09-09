@@ -36,7 +36,3 @@ lxml==4.9.3                     # Fast XML/HTML parser backend for BeautifulSoup
 # pytest-cov==4.1.0             # Coverage reporting
 # black==23.9.1                 # Code formatting
 # flake8==6.1.0                 # Linting
-
-
-
-
