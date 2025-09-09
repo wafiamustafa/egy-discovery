@@ -16,3 +16,9 @@ app = create_app()
 
 # Vercel expects the app to be named 'app'
 # This is the entry point for serverless functions
+
+# For debugging - you can remove this in production
+if __name__ == "__main__":
+    print("Flask app created successfully")
+    print(f"App name: {app.name}")
+    print(f"App debug: {app.debug}")
