@@ -13,24 +13,16 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "frontend/dist"
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/$1"
-    }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "env": {
     "FLASK_ENV": "production",
-    "FLASK_DEBUG": "false",
-    "HOST": "0.0.0.0",
-    "PORT": "8000"
+    "FLASK_DEBUG": "false"
   }
 }
