@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
   "builds": [
     {
       "src": "api/index.py",
@@ -7,13 +9,6 @@
       "config": {
         "maxLambdaSize": "50mb",
         "installCommand": "pip install --upgrade pip && pip install -r api/requirements.txt"
-      }
-    },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "frontend/dist"
       }
     }
   ],
