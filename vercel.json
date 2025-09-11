@@ -23,6 +23,8 @@
   ],
   "env": {
     "FLASK_ENV": "production",
-    "FLASK_DEBUG": "false"
+    "FLASK_DEBUG": "false",
+    "HOST": "0.0.0.0",
+    "PORT": "8000"
   }
 }
