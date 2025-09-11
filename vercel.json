@@ -4,6 +4,10 @@
   "outputDirectory": "frontend/dist",
   "builds": [
     {
+      "src": "frontend/dist/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
