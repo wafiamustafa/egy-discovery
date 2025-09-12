@@ -21,7 +21,7 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/((?!assets).*)", "destination": "/frontend/index.html" }
+    { "source": "/frontend/((?!assets).*)", "destination": "/frontend/index.html" }
   ],
   "headers": [
     {
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "source": "/assets/(.*).css",
+      "source": "/frontend/assets/(.*).css",
       "headers": [
         {
           "key": "Content-Type",
