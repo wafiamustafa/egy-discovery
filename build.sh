@@ -12,3 +12,7 @@ cd ..
 cp -r frontend/dist/* .
 echo "Assets copied successfully!"
 ls -la assets/
+
+# Ensure _headers file exists for proper MIME types
+echo "Verifying headers configuration..."
+ls -la _headers
