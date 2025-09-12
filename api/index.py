@@ -3,6 +3,12 @@ Vercel serverless function entry point for Egy Discovery Flask API
 """
 import sys
 import os
+import mimetypes
+
+# Ensure proper MIME types for JavaScript modules
+mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('text/css', '.css')
+mimetypes.add_type('text/html', '.html')
 
 # Add the server directory to Python path
 server_dir = os.path.join(os.path.dirname(__file__), '..', 'server')

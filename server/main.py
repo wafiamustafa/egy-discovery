@@ -1,5 +1,6 @@
 import os
 import sys
+import mimetypes
 
 # Add the server directory to Python path
 server_dir = os.path.dirname(os.path.abspath(__file__))
@@ -8,6 +9,11 @@ sys.path.insert(0, server_dir)
 from flask import Flask, send_from_directory, jsonify
 from config.settings import Config
 from routes.api_routes import register_routes
+
+# Ensure proper MIME types for JavaScript modules
+mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('text/css', '.css')
+mimetypes.add_type('text/html', '.html')
 
 def create_app():
     """Application factory pattern"""
@@ -35,6 +41,8 @@ def create_app():
     # Serve frontend
     @app.route('/')
     def serve_frontend():
+        if not app.static_folder:
+            return jsonify({"error": "Static folder not configured"}), 500
         return send_from_directory(app.static_folder, 'index.html')
     
     # Catch-all route for frontend routing (LOWER priority, exclude API routes)
@@ -43,10 +51,16 @@ def create_app():
         # Skip API routes - they should be handled by the blueprints
         if path.startswith('api/'):
             return jsonify({"error": "API endpoint not found"}), 404
+        
+        if not app.static_folder:
+            return jsonify({"error": "Static folder not configured"}), 500
             
         # Check if it's a static file
-        if os.path.exists(os.path.join(app.static_folder, path)):
-            return send_from_directory(app.static_folder, path)
+        full_path = os.path.join(app.static_folder, path)
+        if os.path.exists(full_path):
+            # Get the MIME type for the file
+            mimetype, _ = mimetypes.guess_type(full_path)
+            return send_from_directory(app.static_folder, path, mimetype=mimetype)
         
         # For SPA routing, serve index.html
         return send_from_directory(app.static_folder, 'index.html')
