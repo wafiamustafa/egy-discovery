@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Business Intelligence Platform",
   "scripts": {
-    "build": "cd frontend && npm ci && npm run build",
-    "dev": "cd frontend && npm run dev",
+    "build": "npm ci && npm run build",
+    "dev": "npm run dev",
     "start": "python server/main.py"
   },
   "engines": {
