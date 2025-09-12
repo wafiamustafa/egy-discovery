@@ -19,7 +19,7 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/frontend/index.html" }
   ],
   "env": {
     "FLASK_ENV": "production",
