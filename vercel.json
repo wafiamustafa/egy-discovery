@@ -5,7 +5,7 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "../"
+        "distDir": "dist"
       }
     },
     {
@@ -23,7 +23,6 @@
   ],
   "env": {
     "FLASK_ENV": "production",
-    "FLASK_DEBUG": "false",
-    "PYTHONPATH": "/var/task"
+    "FLASK_DEBUG": "false"
   }
 }

@@ -1,13 +1,13 @@
 {
-  "name": "egy-discovery",
-  "version": "1.0.0",
-  "description": "Business Intelligence Platform",
-  "scripts": {
-    "build": "cd frontend && npm ci && npm run build",
-    "dev": "cd frontend && npm run dev",
-    "start": "python server/main.py"
+  \"name\": \"egy-discovery\",
+  \"version\": \"1.0.0\",
+  \"description\": \"Business Intelligence Platform\",
+  \"scripts\": {
+    \"build\": \"cd frontend && npm ci && npm run build\",
+    \"dev\": \"cd frontend && npm run dev\",
+    \"start\": \"python server/main.py\"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  \"engines\": {
+    \"node\": \">=18.0.0\"
   }
 }
