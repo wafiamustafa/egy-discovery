@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     {
+      "src": "build.sh",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "./dist",
-        "buildCommand": "cd frontend && npm run vercel-build",
+        "distDir": "./frontend/dist",
         "outputDirectory": "/"
       }
     },
@@ -20,11 +20,11 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/frontend/((?!assets).*)", "destination": "/frontend/index.html" }
+    { "source": "/((?!assets).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
-      "source": "/frontend/assets/(.*).js",
+      "source": "/assets/(.*).js",
       "headers": [
         {
           "key": "Content-Type",
@@ -33,7 +33,7 @@
       ]
     },
     {
-      "source": "/frontend/assets/(.*).css",
+      "source": "/assets/(.*).css",
       "headers": [
         {
           "key": "Content-Type",
