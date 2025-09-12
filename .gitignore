@@ -45,14 +45,6 @@ yarn-error.log*
 frontend/dist/
 frontend/build/
 
-# Allow root-level built assets for Vercel deployment
-!/index.html
-!/assets/
-
-# Allow root-level built files for Vercel deployment
-# These are copied from frontend/dist/ for deployment
-!/index.html
-!/assets/
 
 # Environment variables
 .env.local
