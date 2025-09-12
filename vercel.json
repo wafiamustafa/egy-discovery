@@ -7,6 +7,22 @@
       "config": {
         "distDir": "dist"
       }
+    },
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "installCommand": "pip install --upgrade pip && pip install -r api/requirements.txt"
+      }
     }
-  ]
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
+    { "source": "/(.*)", "destination": "/frontend/index.html" }
+  ],
+  "env": {
+    "FLASK_ENV": "production",
+    "FLASK_DEBUG": "false"
+  }
 }
