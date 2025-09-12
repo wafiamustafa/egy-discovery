@@ -19,11 +19,11 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/((?!assets).*)", "destination": "/index.html" }
+    { "source": "/frontend/((?!assets).*)", "destination": "/frontend/index.html" }
   ],
   "headers": [
     {
-      "source": "/assets/(.*).js",
+      "source": "/frontend/assets/(.*).js",
       "headers": [
         {
           "key": "Content-Type",
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "source": "/assets/(.*).css",
+      "source": "/frontend/assets/(.*).css",
       "headers": [
         {
           "key": "Content-Type",
