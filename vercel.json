@@ -7,7 +7,7 @@
       "config": {
         "distDir": "./dist",
         "buildCommand": "npm run vercel-build",
-        "outputDirectory": "./frontend"
+        "outputDirectory": "/frontend"
       }
     },
     {
@@ -21,11 +21,11 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/((?!assets).*)", "destination": "/index.html" }
+    { "source": "/((?!assets).*)", "destination": "/frontend/index.html" }
   ],
   "headers": [
     {
-      "source": "/assets/(.*).js",
+      "source": "/frontend/assets/(.*).js",
       "headers": [
         {
           "key": "Content-Type",
